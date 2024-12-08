@@ -3,19 +3,16 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Profesor extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     */
     static associate(models) {
-      Profesor.belongsToMany(models.Cursos, {
-        through: models.ProfesorCursos, // Usa la tabla intermedia
-        foreignKey: 'profesorId',
-        otherKey: 'cursoId',
-        as: 'cursos',
+      // Relación muchos a muchos con Curso mediante la tabla intermedia ProfesoresCurso
+      this.belongsToMany(models.Curso, {
+        through: models.ProfesoresCurso, // Nombre exacto del modelo intermedio
+        foreignKey: 'profesorId', // Clave en ProfesoresCurso para Profesor
+        otherKey: 'cursoId', // Clave en ProfesoresCurso para Curso
+        as: 'cursos', // Alias para la relación
       });
+      
     }
-    
   }
 
   Profesor.init(

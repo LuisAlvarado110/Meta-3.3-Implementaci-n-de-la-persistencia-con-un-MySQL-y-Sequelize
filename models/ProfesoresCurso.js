@@ -2,37 +2,26 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class ProfesorCursos extends Model {
+  class ProfesoresCurso extends Model {
     static associate(models) {
-      // Relación muchos a muchos entre Profesores y Cursos
-      ProfesorCursos.belongsTo(models.Profesor, {
-        foreignKey: 'profesorId',
-        as: 'profesor',
-      });
-      ProfesorCursos.belongsTo(models.Cursos, {
-        foreignKey: 'cursoId',
-        as: 'curso',
-      });
+      // Relación con Profesor
+      this.belongsTo(models.Profesor, { foreignKey: 'profesorId' });
+      // Relación con Curso
+      this.belongsTo(models.Curso, { foreignKey: 'cursoId' });
     }
   }
 
-  ProfesorCursos.init(
+  ProfesoresCurso.init(
     {
-      profesorId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      cursoId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
+      profesorId: DataTypes.INTEGER,
+      cursoId: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: 'ProfesorCursos',
-      timestamps: false, // Puedes habilitarlo si deseas registrar fecha de creación/actualización
+      modelName: 'ProfesoresCurso', // Importante: Nombre exacto usado en las asociaciones
     }
   );
+  
 
-  return ProfesorCursos;
+  return ProfesoresCurso;
 };

@@ -1,4 +1,4 @@
-const { Profesor } = require('../models'); // Importa el modelo Profesor desde Sequelize
+const { Profesor } = require('../models/profesor');
 
 // Obtener todos los profesores
 const getAllProfesores = async (req, res) => {

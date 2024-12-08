@@ -1,4 +1,4 @@
-const { Curso } = require('../models'); // Asegúrate de que la ruta sea correcta
+const { Curso } = require('../models/cursos'); 
 
 // Obtener todos los cursos
 const getAllCursos = async (req, res) => {

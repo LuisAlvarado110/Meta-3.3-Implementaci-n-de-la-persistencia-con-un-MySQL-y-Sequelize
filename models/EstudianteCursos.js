@@ -1,18 +1,37 @@
 'use strict';
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  const EstudianteCursos = sequelize.define(
-    'EstudianteCursos',
+  class EstudianteCursos extends Model {
+    static associate(models) {
+      this.belongsTo(models.Estudiante, { foreignKey: 'matricula' });
+      this.belongsTo(models.Curso, { foreignKey: 'claveCurso' });
+    }
+  }
+
+  EstudianteCursos.init(
     {
-      estudianteId: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
+      matricula: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true, // Parte de la clave primaria compuesta
       },
-      cursoId: {
+      claveCurso: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
+        allowNull: false,
+        primaryKey: true, // Parte de la clave primaria compuesta
+      },
+      calificacion: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
       },
     },
-    { timestamps: false }
+    {
+      sequelize,
+      modelName: 'EstudianteCursos',
+      tableName: 'estudiantecursos',
+      timestamps: true,
+    }
   );
 
   return EstudianteCursos;
